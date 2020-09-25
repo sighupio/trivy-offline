@@ -2,6 +2,13 @@
 kind: pipeline
 name: container
 
+trigger:
+  branch:
+    - master
+  event:
+    - cron
+    - push
+
 steps:
   - name: build-and-push
     image: docker:dind
@@ -17,11 +24,9 @@ steps:
         path: /var/run/docker.sock
     commands:
       - image_name=$${REGISTRY}/sighup/trivy-offline
-      - full_date_tag=$(date +"%m.%d.%Y")
-      - month_date_tag=$(date +"%m.%Y")
+      - full_date_tag=$(date +"%Y-%m-%d")
       - docker login $${REGISTRY} -u $${REGISTRY_USER} -p $${REGISTRY_PASSWORD}
-      - docker build --pull --no-cache -t $${image_name}:$${month_date_tag} -t $${image_name}:$${full_date_tag} -t $${image_name}:latest .
-      - docker push $${image_name}:$${month_date_tag}
+      - docker build --pull --no-cache -t $${image_name}:$${full_date_tag} -t $${image_name}:latest .
       - docker push $${image_name}:$${full_date_tag}
       - docker push $${image_name}:latest
 
