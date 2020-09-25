@@ -1,6 +1,6 @@
 
 kind: pipeline
-name: container
+name: release
 
 trigger:
   branch:
@@ -34,3 +34,13 @@ volumes:
   - name: dockersock
     host:
       path: /var/run/docker.sock
+---
+kind: pipeline
+name: example
+
+steps:
+  - name: scan
+    image: quay.io/sighup/trivy-offline:latest
+    pull: always
+    commands:
+      - trivy --skip-update python:3.4-alpine
