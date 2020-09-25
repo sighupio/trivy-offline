@@ -1,0 +1,31 @@
+
+kind: pipeline
+name: container
+
+steps:
+  - name: build-and-push
+    image: docker:dind
+    pull: always
+    environment:
+      REGISTRY: quay.io
+      REGISTRY_USER:
+        from_secret: registry_user
+      REGISTRY_PASSWORD:
+        from_secret: registry_password
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+      - image_name=$${REGISTRY}/sighup/trivy-offline
+      - full_date_tag=$(date +"%m.%d.%Y")
+      - month_date_tag=$(date +"%m.%Y")
+      - docker login $${REGISTRY} -u $${REGISTRY_USER} -p $${REGISTRY_PASSWORD}
+      - docker build --pull --no-cache -t $${image_name}:$${month_date_tag} -t $${image_name}:$${full_date_tag} -t $${image_name}:latest .
+      - docker push $${image_name}:$${month_date_tag}
+      - docker push $${image_name}:$${full_date_tag}
+      - docker push $${image_name}:latest
+
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
