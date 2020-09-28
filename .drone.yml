@@ -38,6 +38,13 @@ volumes:
 kind: pipeline
 name: example
 
+trigger:
+  branch:
+    - master
+  event:
+    - cron
+    - push
+
 steps:
   - name: scan
     image: quay.io/sighup/trivy-offline:latest
