@@ -72,11 +72,13 @@ steps:
 
 You can include [gitlab.yml](gitlab.yml) in your .gitlab-ci.yml.
 
-Here trivy is defined as a hidden job so it can be extended in any job in any stage in the same pipeline. 
+Here trivy is defined as a hidden job so it can be extended in any job in any stage any number of times in the same pipeline. 
 
 You can scan your own public/private container images *(or anyone public available)* on gitlab ci.
 
-In this example, be default trivy will scan the docker image *(${CI_REGISTRY_IMAGE}/${CI_COMMIT_REF_NAME})* in the container registry of the repo for the branch pipeline is running for,
+By default *CI_REGISTRY, CI_REGISTRY_USER & CI_REGISTRY_PASSWORD* are used to fetch private docker image if *TRIVY_AUTH_URL, TRIVY_USERNAME & TRIVY_PASSWORD* variables are not defined.
+
+In this example, by default trivy will scan the docker image *(${CI_REGISTRY_IMAGE}/${CI_COMMIT_REF_NAME})* in the container registry of the repo for the branch pipeline is running for,
 
 ```yaml
 include:
