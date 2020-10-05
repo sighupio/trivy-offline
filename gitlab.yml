@@ -1,0 +1,15 @@
+.trivy:
+  image:
+    name: "quay.io/sighup/trivy-offline:latest"
+    entrypoint: ["/bin/sh", "-c"]
+  dependencies: []
+  script:
+    - |
+      # trivy...
+      if test ${CI_PROJECT_VISIBILITY} = "private" ; then
+        export TRIVY_AUTH_URL=${TRIVY_AUTH_URL:-${CI_REGISTRY}}
+        export TRIVY_USERNAME=${TRIVY_USERNAME:-${CI_REGISTRY_USER}}
+        export TRIVY_PASSWORD=${TRIVY_PASSWORD:-${CI_REGISTRY_PASSWORD}}
+      fi
+      trivy --skip-update ${CI_REGISTRY_IMAGE}/${CI_COMMIT_REF_NAME}
+  allow_failure: true
