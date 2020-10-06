@@ -68,6 +68,39 @@ steps:
       - trivy --skip-update python:3.4-alpine
 ```
 
+### CI Example - gitlab ci
+
+You can include [gitlab.yml](gitlab.yml) in your .gitlab-ci.yml.
+
+Here trivy is defined as a hidden job so it can be extended in any job in any stage any number of times in the same pipeline. 
+
+You can scan your own public/private container images *(or anyone public available)* on gitlab ci.
+
+By default *CI_REGISTRY, CI_REGISTRY_USER & CI_REGISTRY_PASSWORD* are used to fetch private docker image if *TRIVY_AUTH_URL, TRIVY_USERNAME & TRIVY_PASSWORD* variables are not defined.
+
+In this example, by default trivy will scan the docker image *(${CI_REGISTRY_IMAGE}/${CI_COMMIT_REF_NAME})* in the container registry of the repo for the branch pipeline is running for,
+
+```yaml
+include:
+  - remote: 'https://raw.githubusercontent.com/sighupio/trivy-offline/master/gitlab.yml'
+
+trivy:
+  extends: .trivy
+  stage: scan
+```
+
+And, in this example we are passing the docker image manually.
+
+```yaml
+trivy:
+  extends: .trivy
+  stage: scan
+  script:
+    - |
+      # node:alpine...
+      trivy --skip-update node:alpine
+```
+
 [trivy]: https://github.com/aquasecurity/trivy
 [quay.io/sighup/trivy-offline]: https://quay.io/sighup/trivy-offline
 [`quay.io/sighup/trivy-offline`]: https://quay.io/sighup/trivy-offline
