@@ -1,4 +1,4 @@
-# Trivy Offline
+# Trivy Offline --
 
 [![Build Status](https://ci.sighup.io/api/badges/sighupio/trivy-offline/status.svg)](https://ci.sighup.io/sighupio/trivy-offline)
 
@@ -8,13 +8,13 @@ This project aims to solve an issue while using [trivy] at scale.
 In an environment where you need to scan hundreds or even thousands of container images with [trivy], you can hit a
 GitHub limit while downloading the vulnerability database.
 
-## Inspiration
+## Inspiration --
 
 This project was inspired by the [`arminc/clair-db`](https://hub.docker.com/r/arminc/clair-db) container image,
 and [github.com/arminc/clair-local-scan](https://github.com/arminc/clair-local-scan) project witch speeds up
 [clair](https://github.com/quay/clair) vulnerability scans.
 
-## What we do
+## What we do --
 
 We build and publish a new container image every day following
 [trivy documentation to download and use the vulnerability database just once](https://github.com/aquasecurity/trivy/blob/master/docs/air-gap.md).
@@ -26,7 +26,7 @@ We publish two different tags every day:
 - *[quay.io/sighup/trivy-offline]*:`latest`: It is overridden every day. If you choose this tag, be sure to pull the image before running your scan.
 - *[quay.io/sighup/trivy-offline]*:`YYYY-MM-DD`: It is just one every day. We recommend you to use this tag. It is published at 01:00 UTC Time.
 
-## Quick Start
+## Quick Start --
 
 ```bash
 # Don't forget to pull before running
@@ -51,7 +51,7 @@ $ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
 
 Please re-pull latest [`quay.io/sighup/trivy-offline`] if an error occurred.
 
-### CI Example - drone ci
+### CI Example - drone ci --
 
 You can scan your container images *(or anyone public available)* on drone ci. [See an example below](.drone.yml):
 
@@ -68,7 +68,7 @@ steps:
       - trivy --skip-update python:3.4-alpine
 ```
 
-### CI Example - gitlab ci
+### CI Example - gitlab ci --
 
 You can include [gitlab.yml](gitlab.yml) in your .gitlab-ci.yml.
 
