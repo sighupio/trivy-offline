@@ -1,4 +1,4 @@
-FROM docker.io/aquasec/trivy:latest
+FROM ghcr.io/aquasecurity/trivy:latest
 
 RUN wget https://github.com/aquasecurity/trivy-db/releases/latest/download/trivy-offline.db.tgz && \
     tar -zxvf trivy-offline.db.tgz && rm -rf trivy-offline.db.tgz && \
