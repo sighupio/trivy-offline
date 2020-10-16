@@ -2,7 +2,7 @@
 
 [![Build Status](https://ci.sighup.io/api/badges/sighupio/trivy-offline/status.svg)](https://ci.sighup.io/sighupio/trivy-offline)
 
-<img src="https://raw.githubusercontent.com/aquasecurity/trivy/master/imgs/logo.png" width="150">
+<a href="https://github.com/aquasecurity/trivy" target="_blank"><img src="https://raw.githubusercontent.com/aquasecurity/trivy/master/imgs/logo.png" width="150"></a>
 
 This project aims to solve an issue while using [trivy] at scale.
 In an environment where you need to scan hundreds or even thousands of container images with [trivy], you can hit a
