@@ -5,8 +5,7 @@ on:
       - master
 jobs:
   build:
-    env:
-      context: trivy-offline
+    env:    
       image_name: trivy-offline
     runs-on: ubuntu-latest
     steps:
@@ -14,7 +13,7 @@ jobs:
       - name: Build and publish image to Quay
         uses: docker/build-push-action@v1
         with:
-          path: ${{ env.context }}
+          path: .
           registry: ${{ secrets.REGISTRY_SERVER }}
           repository: ${{ secrets.REGISTRY_NAMESPACE }}/${{ env.image_name }}
           username: ${{ secrets.REGISTRY_USERNAME }}
