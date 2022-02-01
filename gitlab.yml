@@ -11,5 +11,5 @@
         export TRIVY_USERNAME=${TRIVY_USERNAME:-${CI_REGISTRY_USER}}
         export TRIVY_PASSWORD=${TRIVY_PASSWORD:-${CI_REGISTRY_PASSWORD}}
       fi
-      trivy --skip-update ${CI_REGISTRY_IMAGE}/${CI_COMMIT_REF_NAME}
+      trivy image --skip-update ${CI_REGISTRY_IMAGE}/${CI_COMMIT_REF_NAME}
   allow_failure: true

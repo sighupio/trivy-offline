@@ -65,7 +65,7 @@ steps:
     image: quay.io/sighup/trivy-offline:latest
     pull: always
     commands:
-      - trivy --skip-update python:3.4-alpine
+      - trivy image --skip-update python:3.4-alpine
 ```
 
 ### CI Example - gitlab ci
@@ -98,7 +98,7 @@ trivy:
   script:
     - |
       # node:alpine...
-      trivy --skip-update node:alpine
+      trivy image --skip-update node:alpine
 ```
 
 [trivy]: https://github.com/aquasecurity/trivy
