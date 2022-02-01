@@ -1,5 +1,7 @@
 name: trivy-offline-to-quay.io
 on:
+  schedule:
+    - cron: '33 13 * * *'
   push:
     branches:
       - master
