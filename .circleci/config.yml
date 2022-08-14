@@ -1,0 +1,41 @@
+version: 2.1
+jobs:
+  build:
+     docker:
+       - image: cimg/base:2021.04
+     steps:
+       - checkout
+       - setup_remote_docker
+       - run:
+           name: Build trivy-offline Docker image
+           environment:
+             _REGISTRY: quay.io
+           command: |
+             IMAGE_NAME=$REGISTRY/sighup/trivy-offline
+             FULL_DATE_TAG=$(date +"%Y-%m-%d")
+             docker login $_REGISTRY -u $_REGISTRY_USER -p $_REGISTRY_PASSWORD
+             docker build --pull --no-cache -t $IMAGE_NAME:$FULL_DATE_TAG -t $IMAGE_NAME:latest .
+             docker push $IMAGE_NAME:$FULL_DATE_TAG
+             docker push $IMAGE_NAME:latest
+  test:
+    docker:
+      - image: quay.io/sighup/trivy-offline:latest
+    steps:
+      - run:
+          name: Run Aquasec trivy scanner
+          command: trivy image --exit-code 0 --format json --output trivy-container-scanning-report.json --no-progress --skip-update python:3.4-alpine
+      - store_artifacts:
+          path: trivy-container-scanning-report.json
+          destination: trivy-container-scanning-report
+          
+workflows:
+  build_image_and_test:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - circleci-project-setup
+      - test:
+          requires:
+            - build

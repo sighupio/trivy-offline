@@ -98,6 +98,22 @@ trivy:
       # node:alpine...
       trivy image --skip-update node:alpine
 ```
+### CI Example - circle ci
+
+You can scan your container images *(or anyone public available)* on circle ci. [See an example below](.circleci/config.yml):
+
+```yaml
+  test:
+    docker:
+      - image: quay.io/sighup/trivy-offline:latest
+    steps:
+      - run:
+          name: Run Aquasec trivy scanner
+          command: trivy image --exit-code 0 --format json --output trivy-container-scanning-report.json --no-progress --skip-update python:3.4-alpine
+      - store_artifacts:
+          path: trivy-container-scanning-report.json
+          destination: trivy-container-scanning-report
+```
 
 [trivy]: https://github.com/aquasecurity/trivy
 [quay.io/sighup/trivy-offline]: https://quay.io/sighup/trivy-offline
