@@ -15,7 +15,7 @@ and [github.com/arminc/clair-local-scan](https://github.com/arminc/clair-local-s
 ## What we do
 
 We build and publish a new container image every day following
-[trivy documentation to download and use the vulnerability database just once](https://github.com/aquasecurity/trivy/blob/master/docs/air-gap.md).
+[trivy documentation to download and use the vulnerability database just once](https://github.com/aquasecurity/trivy/blob/main/docs/docs/advanced/air-gap.md).
 The process was designed to be used in the air-gapped environment. Still, it fits perfectly while running this software on CI
 systems like `drone`, `gitlab`, `github-actions`, `circle-ci`, or `travis`.
 
@@ -70,7 +70,7 @@ steps:
 
 You can include [gitlab.yml](gitlab.yml) in your .gitlab-ci.yml.
 
-Here trivy is defined as a hidden job so it can be extended in any job in any stage any number of times in the same pipeline. 
+Here trivy is defined as a hidden job so it can be extended in any job in any stage any number of times in the same pipeline.
 
 You can scan your own public/private container images *(or anyone public available)* on gitlab ci.
 
@@ -80,7 +80,7 @@ In this example, by default trivy will scan the docker image *(${CI_REGISTRY_IMA
 
 ```yaml
 include:
-  - remote: 'https://raw.githubusercontent.com/sighupio/trivy-offline/master/gitlab.yml'
+  - remote: 'https://raw.githubusercontent.com/sighupio/trivy-offline/main/gitlab.yml'
 
 trivy:
   extends: .trivy

@@ -8,7 +8,7 @@ name: release
 
 trigger:
   branch:
-    - master
+    - main
   event:
     - cron
     - push
@@ -47,7 +47,7 @@ name: example
 
 trigger:
   branch:
-    - master
+    - main
   event:
     - cron
     - push
