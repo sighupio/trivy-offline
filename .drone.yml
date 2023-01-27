@@ -15,7 +15,7 @@ trigger:
 
 steps:
   - name: build-and-push
-    image: docker:dind
+    image: docker:20.10.23-dind-alpine3.17
     pull: always
     environment:
       REGISTRY: quay.io
@@ -30,9 +30,9 @@ steps:
       - image_name=$${REGISTRY}/sighup/trivy-offline
       - full_date_tag=$(date +"%Y-%m-%d")
       - docker login $${REGISTRY} -u $${REGISTRY_USER} -p $${REGISTRY_PASSWORD}
-      - docker build --pull --no-cache -t $${image_name}:$${full_date_tag} -t $${image_name}:0.34.0 -t $${image_name}:latest .
+      - docker build --pull --no-cache -t $${image_name}:$${full_date_tag} -t $${image_name}:0.36.1 -t $${image_name}:latest .
       - docker push $${image_name}:$${full_date_tag}
-      - docker push $${image_name}:0.34.0
+      - docker push $${image_name}:0.36.1
       - docker push $${image_name}:latest
 
 volumes:

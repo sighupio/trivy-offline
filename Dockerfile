@@ -1,4 +1,4 @@
-FROM ghcr.io/aquasecurity/trivy:0.34.0
+FROM ghcr.io/aquasecurity/trivy:0.36.1
 
 RUN trivy image --download-db-only
 
