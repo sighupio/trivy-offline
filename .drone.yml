@@ -30,9 +30,9 @@ steps:
       - image_name=$${REGISTRY}/sighup/trivy-offline
       - full_date_tag=$(date +"%Y-%m-%d")
       - docker login $${REGISTRY} -u $${REGISTRY_USER} -p $${REGISTRY_PASSWORD}
-      - docker build --pull --no-cache -t $${image_name}:$${full_date_tag} -t $${image_name}:0.36.1 -t $${image_name}:latest .
+      - docker build --pull --no-cache -t $${image_name}:$${full_date_tag} -t $${image_name}:0.37.1 -t $${image_name}:latest .
       - docker push $${image_name}:$${full_date_tag}
-      - docker push $${image_name}:0.36.1
+      - docker push $${image_name}:0.37.1
       - docker push $${image_name}:latest
 
 volumes:
