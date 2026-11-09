@@ -6,6 +6,9 @@ kind: pipeline
 type: docker
 name: release
 
+node:
+  performance: low
+
 trigger:
   branch:
     - main
@@ -43,6 +46,9 @@ volumes:
 kind: pipeline
 type: docker
 name: example
+
+node:
+  performance: low
 
 trigger:
   branch:
